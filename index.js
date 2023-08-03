@@ -14,14 +14,14 @@ dotenv.config()
 app.use(cookieParser())
 app.use(express.json())
 
-mongoose.connect("mongodb://127.0.0.1:27017", {
-    dbName: "youtube"
-
-
-}).then(() => console.log("connected")).catch((error) => console.log(error))
-// mongoose.connect(process.env.MONG_URL, {
+// mongoose.connect("mongodb://127.0.0.1:27017", {
 //     dbName: "youtube"
+
+
 // }).then(() => console.log("connected")).catch((error) => console.log(error))
+mongoose.connect(process.env.MONG_URL, {
+    dbName: "youtube"
+}).then(() => console.log("connected")).catch((error) => console.log(error))
 
 
 app.use("/api/auth", auth)
