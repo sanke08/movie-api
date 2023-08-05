@@ -50,8 +50,7 @@ exports.signin = async (req, res) => {
         res.cookie("token", token, {
             expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
             httpOnly: true
-        })
-        
+        }) 
         res.json({ user })
     } catch (error) {
         res.json({ message: error.message })
