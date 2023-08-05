@@ -35,6 +35,7 @@ exports.signup = async (req, res) => {
 
 
 
+
 exports.signin = async (req, res) => {
     const { email, password } = req.body
     if (!email || !password) return res.status(400).json({ message: "Please enter all required fields" })
@@ -44,18 +45,19 @@ exports.signin = async (req, res) => {
         if (!user) return res.status(400).json({ message: "User Not Found" })
         const isMatchPassword = await bcrypt.compare(password, user.password)
         if (!isMatchPassword) return res.status(400).json({ message: "invalid credentials" })
-        const token = jwt.sign({ id: user._id }, process.env.SECRET_KET)
-        console.log(token)
-      res.cookie("token", token, {
+        const token = jwt.sign({ id: user.id }, process.env.SECRET_KET)
+        console.log(user.id)
+        res.cookie("token", token, {
             expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
             httpOnly: true
         })
-      
+        
         res.json({ user })
     } catch (error) {
         res.json({ message: error.message })
     }
 }
+
 
 
 
